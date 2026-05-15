@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feliz Cumpleaños Mamá</title>
+
+  <!-- FUENTES -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      height:100vh;
+      overflow:hidden;
+      font-family:'Poppins', sans-serif;
+      background:linear-gradient(135deg,#ffb6d9,#ffd6e7,#fff0b3);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+    }
+
+    /* FONDO BRILLO */
+    .background{
+      position:absolute;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      z-index:0;
+    }
+
+    .glow{
+      position:absolute;
+      border-radius:50%;
+      background:rgba(255,255,255,0.25);
+      animation:float 10s infinite ease-in-out;
+      filter:blur(5px);
+    }
+
+    .glow:nth-child(1){
+      width:300px;
+      height:300px;
+      top:10%;
+      left:10%;
+    }
+
+    .glow:nth-child(2){
+      width:250px;
+      height:250px;
+      bottom:10%;
+      right:10%;
+      animation-duration:12s;
+    }
+
+    .glow:nth-child(3){
+      width:150px;
+      height:150px;
+      bottom:25%;
+      left:20%;
+      animation-duration:8s;
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(-30px);
+      }
+    }
+
+    /* TARJETA */
+
+    .card{
+      position:relative;
+      z-index:10;
+      width:90%;
+      max-width:900px;
+      padding:50px;
+      border-radius:35px;
+      background:rgba(255,255,255,0.18);
+      backdrop-filter:blur(15px);
+      border:1px solid rgba(255,255,255,0.3);
+      box-shadow:0 10px 40px rgba(0,0,0,0.15);
+      text-align:center;
+      animation:fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0px);
+      }
+    }
+
+    h1{
+      font-family:'Dancing Script', cursive;
+      font-size:5rem;
+      color:white;
+      margin-bottom:20px;
+      text-shadow:0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .subtitle{
+      color:white;
+      font-size:1.5rem;
+      margin-bottom:35px;
+      font-weight:300;
+    }
+
+    /* EFECTO MAQUINA ESCRIBIR */
+
+    .message{
+      color:white;
+      font-size:1.15rem;
+      line-height:2;
+      min-height:280px;
+      white-space:pre-line;
+      text-shadow:0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    .cursor{
+      display:inline-block;
+      animation:blink .7s infinite;
+    }
+
+    @keyframes blink{
+      50%{
+        opacity:0;
+      }
+    }
+
+    /* CORAZON */
+
+    .heart{
+      margin-top:30px;
+      font-size:3rem;
+      animation:pulse 1.5s infinite;
+    }
+
+    @keyframes pulse{
+      0%{
+        transform:scale(1);
+      }
+
+      50%{
+        transform:scale(1.2);
+      }
+
+      100%{
+        transform:scale(1);
+      }
+    }
+
+    /* GLOBOS */
+
+    .balloon{
+      position:absolute;
+      bottom:-200px;
+      width:70px;
+      animation:rise linear infinite;
+      z-index:1;
+    }
+
+    @keyframes rise{
+      from{
+        transform:translateY(0);
+      }
+      to{
+        transform:translateY(-130vh);
+      }
+    }
+
+    /* CONFETI */
+
+    .confetti{
+      position:absolute;
+      width:12px;
+      height:12px;
+      top:-20px;
+      opacity:0.8;
+      animation:fall linear infinite;
+    }
+
+    @keyframes fall{
+      to{
+        transform:translateY(110vh) rotate(720deg);
+      }
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:768px){
+
+      body{
+        overflow:auto;
+        padding:20px;
+      }
+
+      .card{
+        padding:35px 25px;
+      }
+
+      h1{
+        font-size:3rem;
+      }
+
+      .subtitle{
+        font-size:1.2rem;
+      }
+
+      .message{
+        font-size:1rem;
+        line-height:1.8;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- FONDO -->
+  <div class="background">
+    <div class="glow"></div>
+    <div class="glow"></div>
+    <div class="glow"></div>
+  </div>
+
+  <!-- TARJETA -->
+  <div class="card">
+
+    <h1>🎂 Feliz Cumpleaños Mamá 🎂</h1>
+
+    <div class="subtitle">
+      Te queremos muchísimo 💖
+    </div>
+
+    <div class="message" id="typewriter"></div>
+
+    <div class="heart">❤️</div>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+
+    // MENSAJE
+
+    const text = `Hoy queremos darte las gracias por ser la mejor mamá del mundo. 💖
+
+Gracias por tu amor infinito, por tu paciencia en los momentos difíciles, por apoyarnos incluso cuando las cosas no son fáciles y por siempre estar ahí para nosotros sin importar qué pase.
+
+Eres el corazón de nuestra familia, la persona que nos da fuerza, tranquilidad y alegría todos los días.
+
+No sabemos qué haríamos sin ti, porque tu cariño y tu dedicación hacen que todo sea mejor.
+
+Gracias por cada consejo, cada abrazo, cada sacrificio y cada sonrisa.
+
+Hoy celebramos no solo tu cumpleaños, sino también la maravillosa persona que eres.
+
+Deseamos que este nuevo año de vida esté lleno de felicidad, salud, amor y muchísimos momentos hermosos.
+
+✨ Porque mereces todo lo mejor del mundo ✨`;
+
+    let i = 0;
+
+    function typeWriter(){
+
+      if(i < text.length){
+
+        document.getElementById("typewriter").innerHTML =
+          text.substring(0, i) + '<span class="cursor">|</span>';
+
+        i++;
+
+        setTimeout(typeWriter, 35);
+      }
+    }
+
+    typeWriter();
+
+    // GLOBOS
+
+    const colors = [
+      "#ff4d6d",
+      "#ff85a1",
+      "#ffd166",
+      "#c77dff",
+      "#80ed99"
+    ];
+
+    for(let i=0;i<15;i++){
+
+      const balloon = document.createElement("div");
+
+      balloon.classList.add("balloon");
+
+      balloon.innerHTML = "🎈";
+
+      balloon.style.left = Math.random() * 100 + "vw";
+
+      balloon.style.fontSize =
+        (Math.random() * 30 + 40) + "px";
+
+      balloon.style.animationDuration =
+        (Math.random() * 10 + 10) + "s";
+
+      balloon.style.animationDelay =
+        Math.random() * 5 + "s";
+
+      document.body.appendChild(balloon);
+    }
+
+    // CONFETI
+
+    for(let i=0;i<120;i++){
+
+      const confetti = document.createElement("div");
+
+      confetti.classList.add("confetti");
+
+      confetti.style.left =
+        Math.random() * 100 + "vw";
+
+      confetti.style.animationDuration =
+        (Math.random() * 3 + 4) + "s";
+
+      confetti.style.background =
+        colors[Math.floor(Math.random()*colors.length)];
+
+      confetti.style.opacity =
+        Math.random();
+
+      document.body.appendChild(confetti);
+    }
+
+  </script>
+
+</body>
+</html>
