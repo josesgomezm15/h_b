@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Feliz Cumpleaños Mamá</title>
+  <title>Feliz Cumpleaños Mónica Martínez</title>
 
   <!-- FUENTES -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -136,45 +136,41 @@
 
     h1{
       font-family:'Dancing Script', cursive;
-
       font-size:4.5rem;
-
       color:#ffffff;
-
-      margin-bottom:20px;
-
+      margin-bottom:15px;
       text-shadow:
         0 3px 12px rgba(0,0,0,0.25);
+    }
+
+    /* FECHA */
+
+    .date{
+      color:#fff;
+      font-size:1.2rem;
+      margin-bottom:25px;
+      font-weight:600;
+      text-shadow:0 2px 8px rgba(0,0,0,0.2);
     }
 
     /* SUBTITULO */
 
     .subtitle{
       color:#fff;
-
       font-size:1.5rem;
-
       margin-bottom:35px;
-
       font-weight:500;
     }
 
     /* MENSAJE */
 
     .message{
-
       color:#5c2c44;
-
       font-size:1.18rem;
-
       font-weight:500;
-
       line-height:2.1;
-
       min-height:280px;
-
       white-space:pre-line;
-
       padding:0 10px;
     }
 
@@ -209,6 +205,58 @@
       100%{
         transform:scale(1);
       }
+    }
+
+    /* CARRUSEL */
+
+    .carousel-container{
+      margin-top:45px;
+      position:relative;
+      width:100%;
+      overflow:hidden;
+      border-radius:25px;
+    }
+
+    .carousel{
+      display:flex;
+      transition:transform 0.5s ease-in-out;
+    }
+
+    .carousel img{
+      width:100%;
+      flex-shrink:0;
+      border-radius:25px;
+      object-fit:contain;
+      background:rgba(255,255,255,0.15);
+      max-height:500px;
+    }
+
+    .carousel-buttons{
+      position:absolute;
+      top:50%;
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      transform:translateY(-50%);
+      pointer-events:none;
+      padding:0 10px;
+    }
+
+    .carousel-buttons button{
+      pointer-events:auto;
+      background:rgba(255,255,255,0.7);
+      border:none;
+      width:45px;
+      height:45px;
+      border-radius:50%;
+      font-size:1.5rem;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .carousel-buttons button:hover{
+      background:white;
+      transform:scale(1.1);
     }
 
     /* GLOBOS */
@@ -258,13 +306,9 @@
       }
 
       .card{
-
         width:100%;
-
         max-height:95vh;
-
         padding:30px 22px;
-
         border-radius:28px;
       }
 
@@ -278,14 +322,26 @@
       }
 
       .message{
-
         font-size:1rem;
-
         line-height:1.9;
       }
 
       .heart{
         font-size:2.5rem;
+      }
+
+      .carousel img{
+        max-height:420px;
+      }
+
+      .carousel-buttons button{
+        width:38px;
+        height:38px;
+        font-size:1.2rem;
+      }
+
+      .date{
+        font-size:1rem;
       }
     }
 
@@ -304,7 +360,11 @@
   <!-- TARJETA -->
   <div class="card">
 
-    <h1>🎂 Feliz Cumpleaños Mamá 🎂</h1>
+    <h1>🎂 Feliz Cumpleaños Mónica Martínez 🎂</h1>
+
+    <div class="date">
+      Hoy 16 de Mayo 💖
+    </div>
 
     <div class="subtitle">
       Te queremos muchísimo 💖
@@ -313,6 +373,41 @@
     <div class="message" id="typewriter"></div>
 
     <div class="heart">❤️</div>
+
+    <!-- CARRUSEL -->
+
+    <div class="carousel-container">
+
+      <div class="carousel" id="carousel">
+
+        <img src="1.jpg" alt="Foto 1">
+
+        <img src="2.jpg" alt="Foto 2">
+
+        <img src="3.jpg" alt="Foto 3">
+
+        <img src="4.jpg" alt="Foto 4">
+
+        <img src="5.jpg" alt="Foto 5">
+
+        <img src="6.jpg" alt="Foto 6">
+
+        <img src="7.png" alt="Foto 7">
+
+        <img src="8.jpg" alt="Foto 8">
+
+        <img src="9.jpg" alt="Foto 9">
+
+        <img src="10.jpg" alt="Foto 10">
+
+      </div>
+
+      <div class="carousel-buttons">
+        <button onclick="prevSlide()">❮</button>
+        <button onclick="nextSlide()">❯</button>
+      </div>
+
+    </div>
 
   </div>
 
@@ -408,6 +503,72 @@ Deseamos que este nuevo año de vida esté lleno de felicidad, salud, amor y muc
 
       document.body.appendChild(confetti);
     }
+
+    // CARRUSEL
+
+    let currentSlide = 0;
+
+    const carousel =
+      document.getElementById("carousel");
+
+    const slides =
+      document.querySelectorAll(".carousel img");
+
+    function updateCarousel(){
+
+      carousel.style.transform =
+        `translateX(-${currentSlide * 100}%)`;
+    }
+
+    function nextSlide(){
+
+      currentSlide++;
+
+      if(currentSlide >= slides.length){
+        currentSlide = 0;
+      }
+
+      updateCarousel();
+    }
+
+    function prevSlide(){
+
+      currentSlide--;
+
+      if(currentSlide < 0){
+        currentSlide = slides.length - 1;
+      }
+
+      updateCarousel();
+    }
+
+    // AUTO PLAY
+
+    setInterval(nextSlide, 4000);
+
+    // TOUCH CELULAR
+
+    let startX = 0;
+
+    carousel.addEventListener("touchstart", e => {
+
+      startX = e.touches[0].clientX;
+
+    });
+
+    carousel.addEventListener("touchend", e => {
+
+      let endX = e.changedTouches[0].clientX;
+
+      if(startX - endX > 50){
+        nextSlide();
+      }
+
+      if(endX - startX > 50){
+        prevSlide();
+      }
+
+    });
 
   </script>
 
